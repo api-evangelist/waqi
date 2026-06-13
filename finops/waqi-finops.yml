@@ -1,0 +1,48 @@
+name: WAQI FinOps
+description: Financial operations and cost management details for the World Air Quality Index API
+url: https://aqicn.org/api/
+summary: >
+  The WAQI API is provided entirely free of charge for non-commercial use.
+  There are no subscription fees, per-request charges, or tiered pricing tiers
+  for standard access. Cost management focus is on ensuring compliance with the
+  acceptable usage policy to avoid token revocation.
+costs:
+  - name: API Access
+    type: Free
+    amount: 0
+    currency: USD
+    description: >
+      No cost for standard API access. Tokens are issued at no charge upon
+      registration with a valid email address.
+  - name: Commercial Use
+    type: Contact for pricing
+    amount: null
+    currency: USD
+    description: >
+      For-profit corporations wishing to use the API commercially must enter
+      into an explicit written agreement with the World Air Quality Index
+      project. Pricing for commercial licensing is not publicly disclosed.
+costOptimization:
+  - strategy: Caching Prohibition
+    description: >
+      Note that the WAQI terms of service prohibit caching of data. Cost
+      optimization strategies that rely on caching are not permitted and
+      could result in token revocation.
+  - strategy: Reasonable Request Volume
+    description: >
+      While the default quota is 1,000 requests per second, usage should
+      remain within acceptable usage policy bounds. Avoid excessive or
+      unnecessary polling to stay within the spirit of the free-tier terms.
+  - strategy: Token Management
+    description: >
+      Obtain and store API tokens securely. Each token is tied to registration
+      details. Losing or exposing a token may require re-registration.
+funding:
+  model: Social enterprise / self-funded
+  sources:
+    - Online advertising revenue on aqicn.org and waqi.info
+    - Independent from government and commercial entities
+  note: >
+    The World Air Quality Index project operates as a social enterprise,
+    self-funded primarily through advertising. It is independent of government
+    and for-profit corporate funding.

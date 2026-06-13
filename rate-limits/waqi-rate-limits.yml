@@ -1,0 +1,35 @@
+name: WAQI Rate Limits
+description: Rate limiting details for the World Air Quality Index API
+url: https://aqicn.org/api/
+limits:
+  - name: Default Request Quota
+    description: >
+      The default rate limit for all API tokens is 1,000 requests per second.
+      This applies to all endpoints including the city feed, geo-localized feed,
+      search, and map query endpoints.
+    requests: 1000
+    per: second
+    scope: per token
+    note: >
+      Custom quotas are available for organizations that need higher throughput.
+      Contact the WAQI team at aqicn.org/contact/ to request an increased quota.
+  - name: Acceptable Usage Policy
+    description: >
+      All API usage is subject to an acceptable usage policy. Data cannot be
+      cached, redistributed, or used in commercial products. Attribution is
+      required. For-profit corporate use requires an explicit written agreement
+      with the WAQI project team.
+    restrictions:
+      - No data redistribution or caching
+      - No commercial product inclusion
+      - Mandatory attribution
+      - Non-profit email notification required
+      - For-profit written agreement required
+authentication:
+  type: API Token (query parameter)
+  parameter: token
+  registration: https://aqicn.org/data-platform/token/
+  note: >
+    A valid token must be included with every API request as a query
+    parameter. Tokens are obtained free of charge by registering at the
+    Air Quality Open Data Platform with a valid email address.

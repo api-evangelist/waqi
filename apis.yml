@@ -1,0 +1,70 @@
+aid: waqi
+name: World Air Quality Index (WAQI)
+description: >
+  The World Air Quality Index (WAQI) REST API provides real-time air quality
+  data, AQI readings, pollutant measurements, and station data for more than
+  12,000 monitoring stations worldwide. The API delivers city-level and
+  station-level air quality index values for pollutants including PM2.5, PM10,
+  NO2, CO, SO2, and Ozone, along with geo-location queries, weather conditions,
+  and 3-8 day forecast data. Access is free for non-commercial use and requires
+  a token obtained from the Air Quality Open Data Platform.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/waqi/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Air Quality
+  - AQI
+  - Environment
+  - Pollution
+  - Real-Time Data
+  - Weather
+  - IoT
+  - Open Data
+apis:
+  - aid: waqi:waqi-json-api
+    name: WAQI JSON API
+    description: >
+      The primary programmatic interface for real-time air quality data.
+      Provides access to more than 12,000 station-level and 1,000 city-level
+      data points with geo-location queries and individual AQI readings for
+      all major pollutants. Supports city feed, geo-localized feed, search,
+      and forecast endpoints. Authentication via API token obtained from the
+      Air Quality Open Data Platform.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://aqicn.org/api/
+    baseURL: https://api.waqi.info
+    tags:
+      - Air Quality
+      - AQI
+      - JSON API
+      - Environment
+      - Pollution
+      - Real-Time
+    properties:
+      - type: Documentation
+        url: https://aqicn.org/json-api/doc/
+      - type: Authentication
+        url: https://aqicn.org/data-platform/token/
+common:
+  - type: Website
+    url: https://waqi.info/
+  - type: Website
+    url: https://aqicn.org/
+  - type: Documentation
+    url: https://aqicn.org/json-api/doc/
+  - type: GitHubOrg
+    url: https://github.com/waqi-dev-community
+  - type: Pricing
+    url: https://aqicn.org/api/
+  - type: Plans
+    url: plans/waqi-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/waqi-rate-limits.yml
+  - type: FinOps
+    url: finops/waqi-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

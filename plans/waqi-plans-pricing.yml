@@ -1,0 +1,45 @@
+name: WAQI Plans and Pricing
+description: World Air Quality Index API access plans and pricing details
+url: https://aqicn.org/api/
+plans:
+  - name: Free Open Data
+    description: >
+      Free API access for non-commercial use. Provides programmatic access to
+      real-time air quality data from 12,000+ monitoring stations worldwide.
+      Access is subject to an acceptable usage policy and requires attribution
+      to the World Air Quality Index project.
+    cost: Free
+    rateLimit:
+      requests: 1000
+      per: second
+    features:
+      - Real-time AQI data for 12,000+ stations
+      - City-level data for 1,000+ cities
+      - Geo-location queries (lat/lon or IP-based)
+      - Pollutant-level AQI (PM2.5, PM10, NO2, CO, SO2, Ozone)
+      - 3-8 day forecast data
+      - Station metadata and EPA attribution
+      - Current weather conditions
+      - Map tile API access
+      - Widget API access
+    restrictions:
+      - Data cannot be sold or included in commercial packages
+      - Prohibited in paid applications or services
+      - No caching or redistribution of data
+      - Attribution to World Air Quality Index Project mandatory
+      - For-profit corporate use requires explicit written agreement
+      - Non-profit organizations must notify the team via email
+  - name: Custom / Enterprise
+    description: >
+      Custom quotas and agreements available for organizations with needs
+      exceeding the default rate limit or for commercial usage. Contact the
+      WAQI team directly for arrangements.
+    cost: Contact for pricing
+    rateLimit:
+      requests: Custom
+      per: second
+    features:
+      - Custom rate limit quotas
+      - Commercial usage agreement
+      - All features from the Free plan
+    contact: https://aqicn.org/contact/
