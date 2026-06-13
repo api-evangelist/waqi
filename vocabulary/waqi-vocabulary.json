@@ -1,0 +1,171 @@
+{
+  "vocabulary": {
+    "name": "World Air Quality Index (WAQI) API Vocabulary",
+    "description": "Domain vocabulary for the WAQI JSON API covering air quality terminology, pollutants, indices, and API concepts.",
+    "version": "1.0.0",
+    "source": "https://aqicn.org/json-api/doc/",
+    "terms": [
+      {
+        "term": "AQI",
+        "label": "Air Quality Index",
+        "definition": "A standardized index used by government agencies to communicate how polluted the air currently is or how polluted it is forecast to become. Scale: 0-50 Good, 51-100 Moderate, 101-150 Unhealthy for Sensitive Groups, 151-200 Unhealthy, 201-300 Very Unhealthy, 301+ Hazardous.",
+        "category": "index"
+      },
+      {
+        "term": "idx",
+        "label": "Station Index",
+        "definition": "The unique numeric identifier assigned to a monitoring station within the WAQI network. Used to reference specific stations in API calls (e.g., @8397).",
+        "category": "identifier"
+      },
+      {
+        "term": "iaqi",
+        "label": "Individual Air Quality Index",
+        "definition": "Per-pollutant AQI sub-index values. Each pollutant (PM2.5, PM10, NO2, CO, SO2, O3) has its own sub-index calculated independently. The overall AQI is the maximum of all sub-indices.",
+        "category": "index"
+      },
+      {
+        "term": "dominentpol",
+        "label": "Dominant Pollutant",
+        "definition": "The pollutant with the highest individual AQI sub-index value, which drives the overall AQI calculation.",
+        "category": "measurement"
+      },
+      {
+        "term": "pm25",
+        "label": "PM2.5",
+        "definition": "Particulate Matter with an aerodynamic diameter of 2.5 micrometers or less. Considered the most dangerous common air pollutant due to its ability to penetrate deep into the lungs and bloodstream.",
+        "unit": "μg/m³",
+        "category": "pollutant"
+      },
+      {
+        "term": "pm10",
+        "label": "PM10",
+        "definition": "Particulate Matter with an aerodynamic diameter of 10 micrometers or less. Includes dust, pollen, mold, and combustion particles.",
+        "unit": "μg/m³",
+        "category": "pollutant"
+      },
+      {
+        "term": "no2",
+        "label": "Nitrogen Dioxide",
+        "definition": "Nitrogen Dioxide (NO2), a reddish-brown gas primarily from vehicle emissions and power plants. Contributes to smog formation and respiratory problems.",
+        "unit": "ppb",
+        "category": "pollutant"
+      },
+      {
+        "term": "co",
+        "label": "Carbon Monoxide",
+        "definition": "Carbon Monoxide (CO), a colorless and odorless gas produced by incomplete combustion of carbon-containing fuels. Reduces blood oxygen-carrying capacity.",
+        "unit": "ppm",
+        "category": "pollutant"
+      },
+      {
+        "term": "so2",
+        "label": "Sulfur Dioxide",
+        "definition": "Sulfur Dioxide (SO2), produced primarily from burning fossil fuels containing sulfur. Can cause respiratory irritation and contributes to acid rain.",
+        "unit": "ppb",
+        "category": "pollutant"
+      },
+      {
+        "term": "o3",
+        "label": "Ozone",
+        "definition": "Ground-level Ozone (O3), formed by sunlight reacting with NOx and VOCs. At ground level it is a harmful pollutant causing respiratory issues, unlike protective stratospheric ozone.",
+        "unit": "ppb",
+        "category": "pollutant"
+      },
+      {
+        "term": "t",
+        "label": "Temperature",
+        "definition": "Ambient air temperature recorded at the monitoring station.",
+        "unit": "°C",
+        "category": "meteorological"
+      },
+      {
+        "term": "h",
+        "label": "Humidity",
+        "definition": "Relative humidity percentage recorded at the monitoring station.",
+        "unit": "%",
+        "category": "meteorological"
+      },
+      {
+        "term": "p",
+        "label": "Pressure",
+        "definition": "Atmospheric pressure recorded at the monitoring station.",
+        "unit": "hPa",
+        "category": "meteorological"
+      },
+      {
+        "term": "w",
+        "label": "Wind Speed",
+        "definition": "Wind speed recorded at the monitoring station.",
+        "unit": "m/s",
+        "category": "meteorological"
+      },
+      {
+        "term": "wg",
+        "label": "Wind Gust",
+        "definition": "Peak wind gust speed recorded at the monitoring station.",
+        "unit": "m/s",
+        "category": "meteorological"
+      },
+      {
+        "term": "uvi",
+        "label": "UV Index",
+        "definition": "Ultraviolet Index — a measure of the strength of ultraviolet radiation from the sun at a particular place on a given day. Scale: 1-2 Low, 3-5 Moderate, 6-7 High, 8-10 Very High, 11+ Extreme.",
+        "category": "index"
+      },
+      {
+        "term": "token",
+        "label": "API Token",
+        "definition": "Authentication credential required for all WAQI API requests. Obtained for free from the Air Quality Open Data Platform at https://aqicn.org/data-platform/token/ for non-commercial use.",
+        "category": "authentication"
+      },
+      {
+        "term": "geo",
+        "label": "Geographic Coordinates",
+        "definition": "Latitude and longitude pair representing the geographic position of a monitoring station or query point. Provided as [latitude, longitude] array.",
+        "category": "location"
+      },
+      {
+        "term": "latlng",
+        "label": "Bounding Box",
+        "definition": "Rectangular geographic area defined by four coordinates: lat_north,lng_west,lat_south,lng_east. Used in map bounds queries to retrieve all stations within the area.",
+        "category": "location"
+      },
+      {
+        "term": "attribution",
+        "label": "Data Attribution",
+        "definition": "Reference to the environmental monitoring agency or organization that collected and provided the raw air quality data used to calculate the AQI.",
+        "category": "metadata"
+      },
+      {
+        "term": "forecast",
+        "label": "Air Quality Forecast",
+        "definition": "Predicted air quality values for upcoming days (typically 3-8 days), providing daily minimum, maximum, and average AQI values per pollutant.",
+        "category": "forecast"
+      },
+      {
+        "term": "city feed",
+        "label": "City Feed",
+        "definition": "The primary API endpoint returning real-time air quality data for a specific city or named monitoring station.",
+        "category": "endpoint"
+      },
+      {
+        "term": "geo feed",
+        "label": "Geolocalized Feed",
+        "definition": "API endpoint that returns air quality data for the nearest monitoring station to a provided latitude/longitude coordinate pair.",
+        "category": "endpoint"
+      },
+      {
+        "term": "here feed",
+        "label": "IP-Based Feed",
+        "definition": "API endpoint that uses the requesting client's IP address for geolocation to return air quality data for the nearest monitoring station.",
+        "category": "endpoint"
+      },
+      {
+        "term": "map bounds",
+        "label": "Map Bounds Query",
+        "definition": "API endpoint returning all monitoring stations within a specified geographic bounding box, suitable for rendering on interactive maps.",
+        "category": "endpoint"
+      }
+    ]
+  }
+}

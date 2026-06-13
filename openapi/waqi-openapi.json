@@ -1,0 +1,903 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "World Air Quality Index (WAQI) JSON API",
+    "description": "The WAQI JSON API provides real-time air quality data, AQI readings, pollutant measurements, and station data for more than 12,000 monitoring stations worldwide. It delivers city-level and station-level air quality index values for pollutants including PM2.5, PM10, NO2, CO, SO2, and Ozone, along with geo-location queries, weather conditions, and 3-8 day forecast data. Authentication requires a free token obtained from the Air Quality Open Data Platform.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "WAQI Support",
+      "url": "https://aqicn.org/api/"
+    },
+    "license": {
+      "name": "Non-Commercial Use",
+      "url": "https://aqicn.org/api/"
+    },
+    "termsOfService": "https://aqicn.org/api/"
+  },
+  "externalDocs": {
+    "description": "WAQI JSON API Documentation",
+    "url": "https://aqicn.org/json-api/doc/"
+  },
+  "servers": [
+    {
+      "url": "https://api.waqi.info",
+      "description": "WAQI Production API"
+    }
+  ],
+  "security": [
+    {
+      "tokenAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Feed",
+      "description": "Air quality feed endpoints for city, geo, and IP-based queries"
+    },
+    {
+      "name": "Search",
+      "description": "Search for monitoring stations by keyword"
+    },
+    {
+      "name": "Map",
+      "description": "Map tile and station boundary queries"
+    }
+  ],
+  "paths": {
+    "/feed/{city}/": {
+      "get": {
+        "operationId": "getCityFeed",
+        "summary": "Get air quality feed for a city",
+        "description": "Returns the current air quality data for a specified city or monitoring station. Provides AQI readings, pollutant measurements (PM2.5, PM10, NO2, CO, SO2, Ozone), station coordinates, weather conditions, and forecast data.",
+        "tags": ["Feed"],
+        "parameters": [
+          {
+            "name": "city",
+            "in": "path",
+            "required": true,
+            "description": "City name or station identifier (e.g., 'shanghai', 'beijing', '@8397' for station ID). Use 'here' for IP-based geolocation.",
+            "schema": {
+              "type": "string",
+              "examples": ["shanghai", "beijing", "@8397"]
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "description": "API authentication token obtained from the Air Quality Open Data Platform.",
+            "schema": {
+              "type": "string",
+              "example": "demo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with air quality feed data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedResponse"
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "aqi": 68,
+                    "idx": 1437,
+                    "attributions": [
+                      {
+                        "url": "http://www.semc.gov.cn/aqi/",
+                        "name": "Shanghai Environmental Monitoring Center"
+                      }
+                    ],
+                    "city": {
+                      "geo": [31.2047372, 121.4489017],
+                      "name": "Shanghai",
+                      "url": "https://aqicn.org/city/shanghai"
+                    },
+                    "dominentpol": "pm25",
+                    "iaqi": {
+                      "co": {"v": 4},
+                      "no2": {"v": 11.3},
+                      "o3": {"v": 38.3},
+                      "pm10": {"v": 56},
+                      "pm25": {"v": 68},
+                      "so2": {"v": 2.3}
+                    },
+                    "time": {
+                      "s": "2024-01-15 12:00:00",
+                      "tz": "+08:00",
+                      "v": 1705320000,
+                      "iso": "2024-01-15T12:00:00+08:00"
+                    },
+                    "forecast": {
+                      "daily": {
+                        "o3": [
+                          {"avg": 21, "day": "2024-01-15", "max": 29, "min": 17}
+                        ],
+                        "pm10": [
+                          {"avg": 38, "day": "2024-01-15", "max": 47, "min": 30}
+                        ],
+                        "pm25": [
+                          {"avg": 68, "day": "2024-01-15", "max": 82, "min": 59}
+                        ],
+                        "uvi": [
+                          {"avg": 1, "day": "2024-01-15", "max": 3, "min": 0}
+                        ]
+                      }
+                    },
+                    "debug": {
+                      "sync": "2024-01-15T12:05:00+09:00"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or unknown city/station",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "error",
+                  "data": "Unknown city or station"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing API token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "status": "error",
+                  "data": "Invalid key"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/geo:{lat};{lng}/": {
+      "get": {
+        "operationId": "getGeoFeed",
+        "summary": "Get air quality feed by geographic coordinates",
+        "description": "Returns the air quality data for the nearest monitoring station to the specified latitude and longitude coordinates.",
+        "tags": ["Feed"],
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "path",
+            "required": true,
+            "description": "Latitude of the target location.",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "example": 37.7749
+            }
+          },
+          {
+            "name": "lng",
+            "in": "path",
+            "required": true,
+            "description": "Longitude of the target location.",
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "example": -122.4194
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "description": "API authentication token.",
+            "schema": {
+              "type": "string",
+              "example": "demo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with air quality feed data for the nearest station",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid coordinates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing API token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/here/": {
+      "get": {
+        "operationId": "getIPFeed",
+        "summary": "Get air quality feed based on requester IP address",
+        "description": "Returns the air quality data for the nearest monitoring station to the geographic location inferred from the requesting IP address.",
+        "tags": ["Feed"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "description": "API authentication token.",
+            "schema": {
+              "type": "string",
+              "example": "demo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with air quality feed data based on IP geolocation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing API token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/": {
+      "get": {
+        "operationId": "searchStations",
+        "summary": "Search for monitoring stations by keyword",
+        "description": "Searches for air quality monitoring stations by name or keyword, including native language names. Returns a list of matching stations with their AQI values and location details.",
+        "tags": ["Search"],
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": true,
+            "description": "Search keyword — station name or any name referring to the station, including native language names.",
+            "schema": {
+              "type": "string",
+              "example": "Johannesburg"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "description": "API authentication token.",
+            "schema": {
+              "type": "string",
+              "example": "demo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of matching monitoring stations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                },
+                "example": {
+                  "status": "ok",
+                  "data": [
+                    {
+                      "uid": 8397,
+                      "aqi": "68",
+                      "time": {
+                        "stime": "2024-01-15 12:00:00",
+                        "vtime": 1705320000
+                      },
+                      "station": {
+                        "name": "Johannesburg South, South Africa",
+                        "geo": [-26.2041, 28.0473],
+                        "url": "johannesburg-south/south-africa",
+                        "country": "ZA"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid keyword",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing API token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/map/bounds/": {
+      "get": {
+        "operationId": "getMapBounds",
+        "summary": "Get monitoring stations within geographic bounds",
+        "description": "Returns all monitoring stations within a specified rectangular geographic bounding box, suitable for map display. Supports filtering by network (network parameter).",
+        "tags": ["Map"],
+        "parameters": [
+          {
+            "name": "latlng",
+            "in": "query",
+            "required": true,
+            "description": "Bounding box as a comma-separated string in the format: lat_north,lng_west,lat_south,lng_east.",
+            "schema": {
+              "type": "string",
+              "pattern": "^-?\\d+(\\.\\d+)?,-?\\d+(\\.\\d+)?,-?\\d+(\\.\\d+)?,-?\\d+(\\.\\d+)?$",
+              "example": "40.712,-74.006,34.052,-118.243"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "description": "API authentication token.",
+            "schema": {
+              "type": "string",
+              "example": "demo"
+            }
+          },
+          {
+            "name": "networks",
+            "in": "query",
+            "required": false,
+            "description": "Filter results by monitoring network (e.g., 'all' for all networks).",
+            "schema": {
+              "type": "string",
+              "example": "all"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of monitoring stations within the bounding box",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapBoundsResponse"
+                },
+                "example": {
+                  "status": "ok",
+                  "data": [
+                    {
+                      "lat": 40.6943,
+                      "lon": -73.9249,
+                      "uid": 7536,
+                      "aqi": "45",
+                      "station": {
+                        "name": "Brooklyn, New York, USA",
+                        "time": "2024-01-15T12:00:00-05:00"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid bounding box parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing API token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "tokenAuth": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "token",
+        "description": "API token obtained from the Air Quality Open Data Platform at https://aqicn.org/data-platform/token/"
+      }
+    },
+    "schemas": {
+      "FeedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["ok", "error"],
+            "description": "Response status indicator"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FeedData"
+          }
+        },
+        "required": ["status", "data"]
+      },
+      "FeedData": {
+        "type": "object",
+        "description": "Air quality feed data for a monitoring station",
+        "properties": {
+          "aqi": {
+            "type": "integer",
+            "description": "The overall Air Quality Index value",
+            "example": 68
+          },
+          "idx": {
+            "type": "integer",
+            "description": "Unique station identifier in the WAQI network",
+            "example": 1437
+          },
+          "attributions": {
+            "type": "array",
+            "description": "List of data attribution sources",
+            "items": {
+              "$ref": "#/components/schemas/Attribution"
+            }
+          },
+          "city": {
+            "$ref": "#/components/schemas/CityInfo"
+          },
+          "dominentpol": {
+            "type": "string",
+            "description": "The dominant pollutant driving the AQI value",
+            "enum": ["pm25", "pm10", "no2", "co", "so2", "o3"],
+            "example": "pm25"
+          },
+          "iaqi": {
+            "$ref": "#/components/schemas/IndividualAQI"
+          },
+          "time": {
+            "$ref": "#/components/schemas/TimeInfo"
+          },
+          "forecast": {
+            "$ref": "#/components/schemas/Forecast"
+          },
+          "debug": {
+            "type": "object",
+            "description": "Debug information",
+            "properties": {
+              "sync": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Timestamp of the last data synchronization"
+              }
+            }
+          }
+        },
+        "required": ["aqi", "idx", "city", "iaqi", "time"]
+      },
+      "Attribution": {
+        "type": "object",
+        "description": "Data attribution source",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the attribution source"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the attribution source"
+          },
+          "logo": {
+            "type": "string",
+            "description": "Logo filename for the attribution source"
+          }
+        },
+        "required": ["url", "name"]
+      },
+      "CityInfo": {
+        "type": "object",
+        "description": "City or station location information",
+        "properties": {
+          "geo": {
+            "type": "array",
+            "description": "Geographic coordinates [latitude, longitude]",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "example": [31.2047372, 121.4489017]
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the city or station",
+            "example": "Shanghai"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the city or station page on aqicn.org",
+            "example": "https://aqicn.org/city/shanghai"
+          }
+        },
+        "required": ["geo", "name", "url"]
+      },
+      "IndividualAQI": {
+        "type": "object",
+        "description": "Individual pollutant AQI sub-index values",
+        "properties": {
+          "co": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Carbon Monoxide (CO) AQI sub-index"
+          },
+          "no2": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Nitrogen Dioxide (NO2) AQI sub-index"
+          },
+          "o3": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Ozone (O3) AQI sub-index"
+          },
+          "pm10": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Particulate Matter 10 micrometers (PM10) AQI sub-index"
+          },
+          "pm25": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Particulate Matter 2.5 micrometers (PM2.5) AQI sub-index"
+          },
+          "so2": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Sulfur Dioxide (SO2) AQI sub-index"
+          },
+          "t": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Temperature"
+          },
+          "w": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Wind speed"
+          },
+          "h": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Humidity"
+          },
+          "p": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Atmospheric pressure"
+          },
+          "wg": {
+            "$ref": "#/components/schemas/PollutantValue",
+            "description": "Wind gust"
+          }
+        }
+      },
+      "PollutantValue": {
+        "type": "object",
+        "description": "A single pollutant or measurement value",
+        "properties": {
+          "v": {
+            "type": "number",
+            "format": "float",
+            "description": "The measurement value"
+          }
+        },
+        "required": ["v"]
+      },
+      "TimeInfo": {
+        "type": "object",
+        "description": "Timestamp information for the data reading",
+        "properties": {
+          "s": {
+            "type": "string",
+            "description": "Timestamp in local station time (YYYY-MM-DD HH:MM:SS)",
+            "example": "2024-01-15 12:00:00"
+          },
+          "tz": {
+            "type": "string",
+            "description": "Timezone offset of the station (e.g., +08:00)",
+            "example": "+08:00"
+          },
+          "v": {
+            "type": "integer",
+            "description": "Unix epoch timestamp",
+            "example": 1705320000
+          },
+          "iso": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 formatted timestamp with timezone",
+            "example": "2024-01-15T12:00:00+08:00"
+          }
+        },
+        "required": ["s", "tz", "v"]
+      },
+      "Forecast": {
+        "type": "object",
+        "description": "Air quality forecast data (3-8 days)",
+        "properties": {
+          "daily": {
+            "type": "object",
+            "description": "Daily forecast values by pollutant",
+            "properties": {
+              "o3": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ForecastDay"
+                }
+              },
+              "pm10": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ForecastDay"
+                }
+              },
+              "pm25": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ForecastDay"
+                }
+              },
+              "uvi": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ForecastDay"
+                },
+                "description": "UV Index forecast"
+              }
+            }
+          }
+        }
+      },
+      "ForecastDay": {
+        "type": "object",
+        "description": "Daily forecast values for a single pollutant",
+        "properties": {
+          "avg": {
+            "type": "number",
+            "description": "Average AQI value for the day"
+          },
+          "day": {
+            "type": "string",
+            "format": "date",
+            "description": "Forecast date (YYYY-MM-DD)",
+            "example": "2024-01-15"
+          },
+          "max": {
+            "type": "number",
+            "description": "Maximum AQI value for the day"
+          },
+          "min": {
+            "type": "number",
+            "description": "Minimum AQI value for the day"
+          }
+        },
+        "required": ["avg", "day", "max", "min"]
+      },
+      "SearchResponse": {
+        "type": "object",
+        "description": "Response from the station search endpoint",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["ok", "error"],
+            "description": "Response status indicator"
+          },
+          "data": {
+            "type": "array",
+            "description": "List of matching monitoring stations",
+            "items": {
+              "$ref": "#/components/schemas/SearchResult"
+            }
+          }
+        },
+        "required": ["status", "data"]
+      },
+      "SearchResult": {
+        "type": "object",
+        "description": "A single monitoring station search result",
+        "properties": {
+          "uid": {
+            "type": "integer",
+            "description": "Unique station identifier in the WAQI network",
+            "example": 8397
+          },
+          "aqi": {
+            "type": "string",
+            "description": "Current AQI value (may be a string '-' if unavailable)",
+            "example": "68"
+          },
+          "time": {
+            "type": "object",
+            "properties": {
+              "stime": {
+                "type": "string",
+                "description": "Station local time string",
+                "example": "2024-01-15 12:00:00"
+              },
+              "vtime": {
+                "type": "integer",
+                "description": "Unix epoch timestamp",
+                "example": 1705320000
+              }
+            }
+          },
+          "station": {
+            "$ref": "#/components/schemas/StationInfo"
+          }
+        },
+        "required": ["uid", "aqi", "station"]
+      },
+      "StationInfo": {
+        "type": "object",
+        "description": "Information about a monitoring station",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full station name including city and country",
+            "example": "Johannesburg South, South Africa"
+          },
+          "geo": {
+            "type": "array",
+            "description": "Geographic coordinates [latitude, longitude]",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "example": [-26.2041, 28.0473]
+          },
+          "url": {
+            "type": "string",
+            "description": "Relative URL path to the station page on aqicn.org",
+            "example": "johannesburg-south/south-africa"
+          },
+          "country": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code",
+            "example": "ZA"
+          }
+        },
+        "required": ["name", "geo", "url"]
+      },
+      "MapBoundsResponse": {
+        "type": "object",
+        "description": "Response from the map bounds endpoint",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["ok", "error"],
+            "description": "Response status indicator"
+          },
+          "data": {
+            "type": "array",
+            "description": "List of monitoring stations within the bounding box",
+            "items": {
+              "$ref": "#/components/schemas/MapStation"
+            }
+          }
+        },
+        "required": ["status", "data"]
+      },
+      "MapStation": {
+        "type": "object",
+        "description": "A monitoring station returned in map bounds queries",
+        "properties": {
+          "lat": {
+            "type": "number",
+            "format": "float",
+            "description": "Station latitude",
+            "example": 40.6943
+          },
+          "lon": {
+            "type": "number",
+            "format": "float",
+            "description": "Station longitude",
+            "example": -73.9249
+          },
+          "uid": {
+            "type": "integer",
+            "description": "Unique station identifier",
+            "example": 7536
+          },
+          "aqi": {
+            "type": "string",
+            "description": "Current AQI value (may be '-' if unavailable)",
+            "example": "45"
+          },
+          "station": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Station display name",
+                "example": "Brooklyn, New York, USA"
+              },
+              "time": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Timestamp of the last reading",
+                "example": "2024-01-15T12:00:00-05:00"
+              }
+            }
+          }
+        },
+        "required": ["lat", "lon", "uid", "aqi"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "description": "Error response returned when a request fails",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["error"],
+            "description": "Always 'error' for error responses"
+          },
+          "data": {
+            "type": "string",
+            "description": "Human-readable error message",
+            "example": "Unknown city or station"
+          }
+        },
+        "required": ["status", "data"]
+      }
+    }
+  }
+}

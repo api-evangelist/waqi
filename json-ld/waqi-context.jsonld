@@ -1,0 +1,189 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "waqi": "https://aqicn.org/api/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "status": "waqi:status",
+    "data": "waqi:data",
+
+    "aqi": {
+      "@id": "waqi:aqi",
+      "@type": "xsd:integer",
+      "schema:description": "Air Quality Index value"
+    },
+    "idx": {
+      "@id": "waqi:stationIndex",
+      "@type": "xsd:integer",
+      "schema:description": "Unique WAQI network station identifier"
+    },
+    "dominentpol": {
+      "@id": "waqi:dominantPollutant",
+      "@type": "xsd:string"
+    },
+    "attributions": {
+      "@id": "waqi:attribution",
+      "@container": "@set"
+    },
+    "city": {
+      "@id": "schema:Place"
+    },
+    "name": "schema:name",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "geo": {
+      "@id": "schema:geo"
+    },
+    "iaqi": {
+      "@id": "waqi:individualAQI"
+    },
+    "time": {
+      "@id": "waqi:observationTime"
+    },
+    "s": {
+      "@id": "waqi:localTime",
+      "@type": "xsd:string"
+    },
+    "tz": {
+      "@id": "waqi:timezone",
+      "@type": "xsd:string"
+    },
+    "v": {
+      "@id": "waqi:value",
+      "@type": "xsd:decimal"
+    },
+    "iso": {
+      "@id": "schema:dateTime",
+      "@type": "xsd:dateTime"
+    },
+    "forecast": {
+      "@id": "waqi:forecast"
+    },
+    "daily": {
+      "@id": "waqi:dailyForecast"
+    },
+    "pm25": {
+      "@id": "waqi:PM25",
+      "schema:description": "Particulate matter 2.5 micrometers AQI sub-index"
+    },
+    "pm10": {
+      "@id": "waqi:PM10",
+      "schema:description": "Particulate matter 10 micrometers AQI sub-index"
+    },
+    "no2": {
+      "@id": "waqi:NO2",
+      "schema:description": "Nitrogen dioxide AQI sub-index"
+    },
+    "co": {
+      "@id": "waqi:CO",
+      "schema:description": "Carbon monoxide AQI sub-index"
+    },
+    "so2": {
+      "@id": "waqi:SO2",
+      "schema:description": "Sulfur dioxide AQI sub-index"
+    },
+    "o3": {
+      "@id": "waqi:O3",
+      "schema:description": "Ozone AQI sub-index"
+    },
+    "t": {
+      "@id": "waqi:temperature",
+      "schema:description": "Temperature in Celsius"
+    },
+    "h": {
+      "@id": "waqi:humidity",
+      "schema:description": "Relative humidity percentage"
+    },
+    "p": {
+      "@id": "waqi:pressure",
+      "schema:description": "Atmospheric pressure in hPa"
+    },
+    "w": {
+      "@id": "waqi:windSpeed",
+      "schema:description": "Wind speed in m/s"
+    },
+    "wg": {
+      "@id": "waqi:windGust",
+      "schema:description": "Wind gust speed in m/s"
+    },
+    "uvi": {
+      "@id": "waqi:uvIndex",
+      "schema:description": "UV Index"
+    },
+    "avg": {
+      "@id": "schema:value",
+      "@type": "xsd:decimal"
+    },
+    "day": {
+      "@id": "schema:startDate",
+      "@type": "xsd:date"
+    },
+    "max": {
+      "@id": "schema:maxValue",
+      "@type": "xsd:decimal"
+    },
+    "min": {
+      "@id": "schema:minValue",
+      "@type": "xsd:decimal"
+    },
+    "uid": {
+      "@id": "schema:identifier",
+      "@type": "xsd:integer"
+    },
+    "lat": {
+      "@id": "schema:latitude",
+      "@type": "xsd:decimal"
+    },
+    "lon": {
+      "@id": "schema:longitude",
+      "@type": "xsd:decimal"
+    },
+    "keyword": {
+      "@id": "schema:query",
+      "@type": "xsd:string"
+    },
+    "token": {
+      "@id": "waqi:apiToken",
+      "schema:description": "API authentication token for WAQI data platform"
+    },
+    "latlng": {
+      "@id": "waqi:boundingBox",
+      "schema:description": "Geographic bounding box as lat_north,lng_west,lat_south,lng_east"
+    },
+    "debug": {
+      "@id": "waqi:debugInfo"
+    },
+    "sync": {
+      "@id": "waqi:syncTimestamp",
+      "@type": "xsd:dateTime"
+    },
+    "station": {
+      "@id": "waqi:MonitoringStation",
+      "@type": "@id"
+    },
+    "stime": {
+      "@id": "waqi:stationLocalTime",
+      "@type": "xsd:string"
+    },
+    "vtime": {
+      "@id": "waqi:epochTime",
+      "@type": "xsd:integer"
+    },
+    "country": {
+      "@id": "schema:addressCountry",
+      "@type": "xsd:string"
+    },
+    "logo": {
+      "@id": "schema:logo",
+      "@type": "@id"
+    }
+  },
+  "@type": "waqi:APIContext",
+  "schema:name": "World Air Quality Index API JSON-LD Context",
+  "schema:description": "JSON-LD context mapping WAQI API response properties to schema.org and WAQI vocabulary terms",
+  "schema:url": "https://aqicn.org/json-api/doc/",
+  "schema:version": "1.0.0"
+}

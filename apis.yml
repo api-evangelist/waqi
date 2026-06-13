@@ -48,6 +48,8 @@ apis:
         url: https://aqicn.org/json-api/doc/
       - type: Authentication
         url: https://aqicn.org/data-platform/token/
+      - type: OpenAPI
+        url: openapi/waqi-openapi.json
 common:
   - type: Website
     url: https://waqi.info/

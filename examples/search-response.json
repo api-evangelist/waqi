@@ -1,0 +1,33 @@
+{
+  "status": "ok",
+  "data": [
+    {
+      "uid": 8397,
+      "aqi": "68",
+      "time": {
+        "stime": "2024-01-15 12:00:00",
+        "vtime": 1705320000
+      },
+      "station": {
+        "name": "Johannesburg South, South Africa",
+        "geo": [-26.2041, 28.0473],
+        "url": "johannesburg-south/south-africa",
+        "country": "ZA"
+      }
+    },
+    {
+      "uid": 8412,
+      "aqi": "45",
+      "time": {
+        "stime": "2024-01-15 12:00:00",
+        "vtime": 1705320000
+      },
+      "station": {
+        "name": "Johannesburg North, South Africa",
+        "geo": [-26.1052, 28.0566],
+        "url": "johannesburg-north/south-africa",
+        "country": "ZA"
+      }
+    }
+  ]
+}

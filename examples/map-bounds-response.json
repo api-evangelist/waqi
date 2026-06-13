@@ -1,0 +1,35 @@
+{
+  "status": "ok",
+  "data": [
+    {
+      "lat": 40.6943,
+      "lon": -73.9249,
+      "uid": 7536,
+      "aqi": "45",
+      "station": {
+        "name": "Brooklyn, New York, USA",
+        "time": "2024-01-15T12:00:00-05:00"
+      }
+    },
+    {
+      "lat": 40.7484,
+      "lon": -73.9967,
+      "uid": 7537,
+      "aqi": "52",
+      "station": {
+        "name": "Manhattan, New York, USA",
+        "time": "2024-01-15T12:00:00-05:00"
+      }
+    },
+    {
+      "lat": 40.7282,
+      "lon": -74.0776,
+      "uid": 7538,
+      "aqi": "38",
+      "station": {
+        "name": "Jersey City, New Jersey, USA",
+        "time": "2024-01-15T12:00:00-05:00"
+      }
+    }
+  ]
+}

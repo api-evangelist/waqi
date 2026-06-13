@@ -1,0 +1,74 @@
+{
+  "status": "ok",
+  "data": {
+    "aqi": 68,
+    "idx": 1437,
+    "attributions": [
+      {
+        "url": "http://www.semc.gov.cn/aqi/",
+        "name": "Shanghai Environmental Monitoring Center",
+        "logo": "China-Shanghai-EPB.png"
+      },
+      {
+        "url": "https://waqi.info/",
+        "name": "World Air Quality Index Project"
+      }
+    ],
+    "city": {
+      "geo": [31.2047372, 121.4489017],
+      "name": "Shanghai",
+      "url": "https://aqicn.org/city/shanghai"
+    },
+    "dominentpol": "pm25",
+    "iaqi": {
+      "co": {"v": 4},
+      "no2": {"v": 11.3},
+      "o3": {"v": 38.3},
+      "pm10": {"v": 56},
+      "pm25": {"v": 68},
+      "so2": {"v": 2.3},
+      "t": {"v": 8},
+      "h": {"v": 72},
+      "p": {"v": 1021},
+      "w": {"v": 3.1},
+      "wg": {"v": 4.6}
+    },
+    "time": {
+      "s": "2024-01-15 12:00:00",
+      "tz": "+08:00",
+      "v": 1705320000,
+      "iso": "2024-01-15T12:00:00+08:00"
+    },
+    "forecast": {
+      "daily": {
+        "o3": [
+          {"avg": 21, "day": "2024-01-14", "max": 29, "min": 17},
+          {"avg": 18, "day": "2024-01-15", "max": 24, "min": 13},
+          {"avg": 22, "day": "2024-01-16", "max": 31, "min": 16},
+          {"avg": 25, "day": "2024-01-17", "max": 34, "min": 18}
+        ],
+        "pm10": [
+          {"avg": 38, "day": "2024-01-14", "max": 47, "min": 30},
+          {"avg": 56, "day": "2024-01-15", "max": 72, "min": 44},
+          {"avg": 45, "day": "2024-01-16", "max": 58, "min": 35},
+          {"avg": 33, "day": "2024-01-17", "max": 42, "min": 25}
+        ],
+        "pm25": [
+          {"avg": 55, "day": "2024-01-14", "max": 68, "min": 44},
+          {"avg": 68, "day": "2024-01-15", "max": 82, "min": 59},
+          {"avg": 61, "day": "2024-01-16", "max": 75, "min": 50},
+          {"avg": 47, "day": "2024-01-17", "max": 58, "min": 38}
+        ],
+        "uvi": [
+          {"avg": 1, "day": "2024-01-14", "max": 2, "min": 0},
+          {"avg": 1, "day": "2024-01-15", "max": 3, "min": 0},
+          {"avg": 2, "day": "2024-01-16", "max": 4, "min": 0},
+          {"avg": 1, "day": "2024-01-17", "max": 3, "min": 0}
+        ]
+      }
+    },
+    "debug": {
+      "sync": "2024-01-15T12:05:00+09:00"
+    }
+  }
+}
