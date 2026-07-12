@@ -51,6 +51,10 @@ apis:
       - type: OpenAPI
         url: openapi/waqi-openapi.json
 common:
+  - type: DomainSecurity
+    url: security/waqi-domain-security.yml
+  - type: Authentication
+    url: authentication/waqi-authentication.yml
   - type: Website
     url: https://waqi.info/
   - type: Website
