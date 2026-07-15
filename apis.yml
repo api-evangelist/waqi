@@ -51,6 +51,8 @@ apis:
       - type: OpenAPI
         url: openapi/waqi-openapi.json
 common:
+  - type: AgenticAccess
+    url: agentic-access/waqi-agentic-access.yml
   - type: DomainSecurity
     url: security/waqi-domain-security.yml
   - type: Authentication
