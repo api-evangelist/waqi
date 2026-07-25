@@ -1,0 +1,164 @@
+openapi: 3.1.0
+info:
+  title: World Air Quality Index (WAQI) JSON Feed Map API
+  description: The WAQI JSON API provides real-time air quality data, AQI readings, pollutant measurements, and station data for more than 12,000 monitoring stations worldwide. It delivers city-level and station-level air quality index values for pollutants including PM2.5, PM10, NO2, CO, SO2, and Ozone, along with geo-location queries, weather conditions, and 3-8 day forecast data. Authentication requires a free token obtained from the Air Quality Open Data Platform.
+  version: 1.0.0
+  contact:
+    name: WAQI Support
+    url: https://aqicn.org/api/
+  license:
+    name: Non-Commercial Use
+    url: https://aqicn.org/api/
+  termsOfService: https://aqicn.org/api/
+servers:
+- url: https://api.waqi.info
+  description: WAQI Production API
+security:
+- tokenAuth: []
+tags:
+- name: Map
+  description: Map tile and station boundary queries
+paths:
+  /map/bounds/:
+    get:
+      operationId: getMapBounds
+      summary: Get monitoring stations within geographic bounds
+      description: Returns all monitoring stations within a specified rectangular geographic bounding box, suitable for map display. Supports filtering by network (network parameter).
+      tags:
+      - Map
+      parameters:
+      - name: latlng
+        in: query
+        required: true
+        description: 'Bounding box as a comma-separated string in the format: lat_north,lng_west,lat_south,lng_east.'
+        schema:
+          type: string
+          pattern: ^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$
+          example: 40.712,-74.006,34.052,-118.243
+      - name: token
+        in: query
+        required: true
+        description: API authentication token.
+        schema:
+          type: string
+          example: demo
+      - name: networks
+        in: query
+        required: false
+        description: Filter results by monitoring network (e.g., 'all' for all networks).
+        schema:
+          type: string
+          example: all
+      responses:
+        '200':
+          description: Successful response with list of monitoring stations within the bounding box
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapBoundsResponse'
+              example:
+                status: ok
+                data:
+                - lat: 40.6943
+                  lon: -73.9249
+                  uid: 7536
+                  aqi: '45'
+                  station:
+                    name: Brooklyn, New York, USA
+                    time: '2024-01-15T12:00:00-05:00'
+        '400':
+          description: Invalid bounding box parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Invalid or missing API token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    MapStation:
+      type: object
+      description: A monitoring station returned in map bounds queries
+      properties:
+        lat:
+          type: number
+          format: float
+          description: Station latitude
+          example: 40.6943
+        lon:
+          type: number
+          format: float
+          description: Station longitude
+          example: -73.9249
+        uid:
+          type: integer
+          description: Unique station identifier
+          example: 7536
+        aqi:
+          type: string
+          description: Current AQI value (may be '-' if unavailable)
+          example: '45'
+        station:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Station display name
+              example: Brooklyn, New York, USA
+            time:
+              type: string
+              format: date-time
+              description: Timestamp of the last reading
+              example: '2024-01-15T12:00:00-05:00'
+      required:
+      - lat
+      - lon
+      - uid
+      - aqi
+    ErrorResponse:
+      type: object
+      description: Error response returned when a request fails
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          description: Always 'error' for error responses
+        data:
+          type: string
+          description: Human-readable error message
+          example: Unknown city or station
+      required:
+      - status
+      - data
+    MapBoundsResponse:
+      type: object
+      description: Response from the map bounds endpoint
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+          description: Response status indicator
+        data:
+          type: array
+          description: List of monitoring stations within the bounding box
+          items:
+            $ref: '#/components/schemas/MapStation'
+      required:
+      - status
+      - data
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: API token obtained from the Air Quality Open Data Platform at https://aqicn.org/data-platform/token/
+externalDocs:
+  description: WAQI JSON API Documentation
+  url: https://aqicn.org/json-api/doc/

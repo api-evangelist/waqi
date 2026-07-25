@@ -1,0 +1,182 @@
+openapi: 3.1.0
+info:
+  title: World Air Quality Index (WAQI) JSON Feed Search API
+  description: The WAQI JSON API provides real-time air quality data, AQI readings, pollutant measurements, and station data for more than 12,000 monitoring stations worldwide. It delivers city-level and station-level air quality index values for pollutants including PM2.5, PM10, NO2, CO, SO2, and Ozone, along with geo-location queries, weather conditions, and 3-8 day forecast data. Authentication requires a free token obtained from the Air Quality Open Data Platform.
+  version: 1.0.0
+  contact:
+    name: WAQI Support
+    url: https://aqicn.org/api/
+  license:
+    name: Non-Commercial Use
+    url: https://aqicn.org/api/
+  termsOfService: https://aqicn.org/api/
+servers:
+- url: https://api.waqi.info
+  description: WAQI Production API
+security:
+- tokenAuth: []
+tags:
+- name: Search
+  description: Search for monitoring stations by keyword
+paths:
+  /search/:
+    get:
+      operationId: searchStations
+      summary: Search for monitoring stations by keyword
+      description: Searches for air quality monitoring stations by name or keyword, including native language names. Returns a list of matching stations with their AQI values and location details.
+      tags:
+      - Search
+      parameters:
+      - name: keyword
+        in: query
+        required: true
+        description: Search keyword — station name or any name referring to the station, including native language names.
+        schema:
+          type: string
+          example: Johannesburg
+      - name: token
+        in: query
+        required: true
+        description: API authentication token.
+        schema:
+          type: string
+          example: demo
+      responses:
+        '200':
+          description: Successful response with list of matching monitoring stations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+              example:
+                status: ok
+                data:
+                - uid: 8397
+                  aqi: '68'
+                  time:
+                    stime: '2024-01-15 12:00:00'
+                    vtime: 1705320000
+                  station:
+                    name: Johannesburg South, South Africa
+                    geo:
+                    - -26.2041
+                    - 28.0473
+                    url: johannesburg-south/south-africa
+                    country: ZA
+        '400':
+          description: Missing or invalid keyword
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Invalid or missing API token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    StationInfo:
+      type: object
+      description: Information about a monitoring station
+      properties:
+        name:
+          type: string
+          description: Full station name including city and country
+          example: Johannesburg South, South Africa
+        geo:
+          type: array
+          description: Geographic coordinates [latitude, longitude]
+          items:
+            type: number
+            format: float
+          minItems: 2
+          maxItems: 2
+          example:
+          - -26.2041
+          - 28.0473
+        url:
+          type: string
+          description: Relative URL path to the station page on aqicn.org
+          example: johannesburg-south/south-africa
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          example: ZA
+      required:
+      - name
+      - geo
+      - url
+    SearchResponse:
+      type: object
+      description: Response from the station search endpoint
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+          description: Response status indicator
+        data:
+          type: array
+          description: List of matching monitoring stations
+          items:
+            $ref: '#/components/schemas/SearchResult'
+      required:
+      - status
+      - data
+    ErrorResponse:
+      type: object
+      description: Error response returned when a request fails
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          description: Always 'error' for error responses
+        data:
+          type: string
+          description: Human-readable error message
+          example: Unknown city or station
+      required:
+      - status
+      - data
+    SearchResult:
+      type: object
+      description: A single monitoring station search result
+      properties:
+        uid:
+          type: integer
+          description: Unique station identifier in the WAQI network
+          example: 8397
+        aqi:
+          type: string
+          description: Current AQI value (may be a string '-' if unavailable)
+          example: '68'
+        time:
+          type: object
+          properties:
+            stime:
+              type: string
+              description: Station local time string
+              example: '2024-01-15 12:00:00'
+            vtime:
+              type: integer
+              description: Unix epoch timestamp
+              example: 1705320000
+        station:
+          $ref: '#/components/schemas/StationInfo'
+      required:
+      - uid
+      - aqi
+      - station
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: API token obtained from the Air Quality Open Data Platform at https://aqicn.org/data-platform/token/
+externalDocs:
+  description: WAQI JSON API Documentation
+  url: https://aqicn.org/json-api/doc/
