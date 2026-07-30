@@ -9,7 +9,20 @@ description: >
   and 3-8 day forecast data. Access is free for non-commercial use and requires
   a token obtained from the Air Quality Open Data Platform.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/waqi.png
 url: https://raw.githubusercontent.com/api-evangelist/waqi/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -24,32 +37,48 @@ tags:
   - IoT
   - Open Data
 apis:
-  - aid: waqi:waqi-json-api
-    name: WAQI JSON API
-    description: >
-      The primary programmatic interface for real-time air quality data.
-      Provides access to more than 12,000 station-level and 1,000 city-level
-      data points with geo-location queries and individual AQI readings for
-      all major pollutants. Supports city feed, geo-localized feed, search,
-      and forecast endpoints. Authentication via API token obtained from the
-      Air Quality Open Data Platform.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://aqicn.org/api/
-    baseURL: https://api.waqi.info
-    tags:
-      - Air Quality
-      - AQI
-      - JSON API
-      - Environment
-      - Pollution
-      - Real-Time
-    properties:
-      - type: Documentation
-        url: https://aqicn.org/json-api/doc/
-      - type: Authentication
-        url: https://aqicn.org/data-platform/token/
-      - type: OpenAPI
-        url: openapi/waqi-openapi.json
+- aid: waqi:waqi-feed-api
+  name: World Air Quality Index (WAQI) Feed API
+  description: Air quality feed endpoints for city, geo, and IP-based queries
+  humanURL: https://aqicn.org/api/
+  baseURL: https://api.waqi.info
+  tags:
+  - Feed
+  properties:
+  - type: OpenAPI
+    url: openapi/waqi-feed-api-openapi.yml
+  - type: Documentation
+    url: https://aqicn.org/json-api/doc/
+  - type: Authentication
+    url: https://aqicn.org/data-platform/token/
+- aid: waqi:waqi-map-api
+  name: World Air Quality Index (WAQI) Map API
+  description: Map tile and station boundary queries
+  humanURL: https://aqicn.org/api/
+  baseURL: https://api.waqi.info
+  tags:
+  - Map
+  properties:
+  - type: OpenAPI
+    url: openapi/waqi-map-api-openapi.yml
+  - type: Documentation
+    url: https://aqicn.org/json-api/doc/
+  - type: Authentication
+    url: https://aqicn.org/data-platform/token/
+- aid: waqi:waqi-search-api
+  name: World Air Quality Index (WAQI) Search API
+  description: Search for monitoring stations by keyword
+  humanURL: https://aqicn.org/api/
+  baseURL: https://api.waqi.info
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/waqi-search-api-openapi.yml
+  - type: Documentation
+    url: https://aqicn.org/json-api/doc/
+  - type: Authentication
+    url: https://aqicn.org/data-platform/token/
 common:
   - type: AgenticAccess
     url: agentic-access/waqi-agentic-access.yml
