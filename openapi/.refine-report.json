@@ -1,0 +1,18 @@
+{
+  "provider": "waqi",
+  "sources": [
+    "waqi-feed-api-openapi.yml",
+    "waqi-map-api-openapi.yml",
+    "waqi-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "waqi-feed-api-openapi.yml",
+    "waqi-map-api-openapi.yml",
+    "waqi-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
