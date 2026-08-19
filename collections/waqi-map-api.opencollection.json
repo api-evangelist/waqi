@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "World Air Quality Index (WAQI) JSON Feed Map API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Map",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get monitoring stations within geographic bounds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.waqi.info/map/bounds/",
+            "params": [
+              {
+                "name": "latlng",
+                "value": "",
+                "type": "query",
+                "description": "Bounding box as a comma-separated string in the format: lat_north,lng_west,lat_south,lng_east."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "API authentication token."
+              },
+              {
+                "name": "networks",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by monitoring network (e.g., 'all' for all networks)."
+              }
+            ]
+          },
+          "docs": "Returns all monitoring stations within a specified rectangular geographic bounding box, suitable for map display. Supports filtering by network (network parameter)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

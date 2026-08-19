@@ -1,0 +1,601 @@
+{
+  "item": [
+    {
+      "id": "14a00d80-9d39-448c-9245-610a4f95a018",
+      "name": "Feed",
+      "description": {
+        "content": "Air quality feed endpoints for city, geo, and IP-based queries",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "da5e953b-4ac8-432f-a93a-1d2e30064d24",
+          "name": "Get air quality feed for a city",
+          "request": {
+            "name": "Get air quality feed for a city",
+            "description": {
+              "content": "Returns the current air quality data for a specified city or monitoring station. Provides AQI readings, pollutant measurements (PM2.5, PM10, NO2, CO, SO2, Ozone), station coordinates, weather conditions, and forecast data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "feed",
+                ":city",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) API authentication token obtained from the Air Quality Open Data Platform."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "city",
+                  "description": "(Required) City name or station identifier (e.g., 'shanghai', 'beijing', '@8397' for station ID). Use 'here' for IP-based geolocation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40f80de7-0508-4539-816b-4935eec1d7a2",
+              "name": "Successful response with air quality feed data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feed",
+                    ":city",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "city",
+                      "description": "(Required) City name or station identifier (e.g., 'shanghai', 'beijing', '@8397' for station ID). Use 'here' for IP-based geolocation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"aqi\": 68,\n    \"idx\": 1437,\n    \"attributions\": [\n      {\n        \"url\": \"http://www.semc.gov.cn/aqi/\",\n        \"name\": \"Shanghai Environmental Monitoring Center\"\n      }\n    ],\n    \"city\": {\n      \"geo\": [\n        31.2047372,\n        121.4489017\n      ],\n      \"name\": \"Shanghai\",\n      \"url\": \"https://aqicn.org/city/shanghai\"\n    },\n    \"dominentpol\": \"pm25\",\n    \"iaqi\": {\n      \"co\": {\n        \"v\": 4\n      },\n      \"no2\": {\n        \"v\": 11.3\n      },\n      \"o3\": {\n        \"v\": 38.3\n      },\n      \"pm10\": {\n        \"v\": 56\n      },\n      \"pm25\": {\n        \"v\": 68\n      },\n      \"so2\": {\n        \"v\": 2.3\n      }\n    },\n    \"time\": {\n      \"s\": \"2024-01-15 12:00:00\",\n      \"tz\": \"+08:00\",\n      \"v\": 1705320000,\n      \"iso\": \"2024-01-15T12:00:00+08:00\"\n    },\n    \"forecast\": {\n      \"daily\": {\n        \"o3\": [\n          {\n            \"avg\": 21,\n            \"day\": \"2024-01-15\",\n            \"max\": 29,\n            \"min\": 17\n          }\n        ],\n        \"pm10\": [\n          {\n            \"avg\": 38,\n            \"day\": \"2024-01-15\",\n            \"max\": 47,\n            \"min\": 30\n          }\n        ],\n        \"pm25\": [\n          {\n            \"avg\": 68,\n            \"day\": \"2024-01-15\",\n            \"max\": 82,\n            \"min\": 59\n          }\n        ],\n        \"uvi\": [\n          {\n            \"avg\": 1,\n            \"day\": \"2024-01-15\",\n            \"max\": 3,\n            \"min\": 0\n          }\n        ]\n      }\n    },\n    \"debug\": {\n      \"sync\": \"2024-01-15T12:05:00+09:00\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71e7d2b2-4576-43b8-b846-e1a023f41029",
+              "name": "Invalid request or unknown city/station",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feed",
+                    ":city",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "city",
+                      "description": "(Required) City name or station identifier (e.g., 'shanghai', 'beijing', '@8397' for station ID). Use 'here' for IP-based geolocation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": \"Unknown city or station\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72f29e39-5138-4878-81eb-a05dd99d90b6",
+              "name": "Invalid or missing API token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feed",
+                    ":city",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "city",
+                      "description": "(Required) City name or station identifier (e.g., 'shanghai', 'beijing', '@8397' for station ID). Use 'here' for IP-based geolocation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": \"Invalid key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f10d35e5-0378-420b-b488-829d3ee3c4a9",
+          "name": "Get air quality feed by geographic coordinates",
+          "request": {
+            "name": "Get air quality feed by geographic coordinates",
+            "description": {
+              "content": "Returns the air quality data for the nearest monitoring station to the specified latitude and longitude coordinates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "feed",
+                "geo:{{lat}};{{lng}}",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) API authentication token."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df60e2c6-f2f8-4949-9266-8de64e2c7c01",
+              "name": "Successful response with air quality feed data for the nearest station",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feed",
+                    "geo:{{lat}};{{lng}}",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"aqi\": 68,\n    \"idx\": 1437,\n    \"city\": {\n      \"geo\": [\n        31.2047372,\n        121.4489017\n      ],\n      \"name\": \"Shanghai\",\n      \"url\": \"https://aqicn.org/city/shanghai\"\n    },\n    \"iaqi\": {\n      \"co\": {\n        \"v\": 204.29267782064775\n      },\n      \"no2\": {\n        \"v\": 5856.014717885541\n      },\n      \"o3\": {\n        \"v\": 1590.8233670723703\n      },\n      \"pm10\": {\n        \"v\": 8460.88359865731\n      },\n      \"pm25\": {\n        \"v\": 8751.873308686732\n      },\n      \"so2\": {\n        \"v\": 3442.4937626521223\n      },\n      \"t\": {\n        \"v\": 4162.564706263338\n      },\n      \"w\": {\n        \"v\": 1260.3108130910045\n      },\n      \"h\": {\n        \"v\": 6947.327660460447\n      },\n      \"p\": {\n        \"v\": 4049.835730784321\n      },\n      \"wg\": {\n        \"v\": 7504.3948747924715\n      }\n    },\n    \"time\": {\n      \"s\": \"2024-01-15 12:00:00\",\n      \"tz\": \"+08:00\",\n      \"v\": 1705320000,\n      \"iso\": \"2024-01-15T12:00:00+08:00\"\n    },\n    \"attributions\": [\n      {\n        \"url\": \"http://SPAMtjqqvEMgPkmD.oqZRXFdBHBWl-u1ko7NPOS,odrSGNbmbVLxMC91gYEHtVs3NX6\",\n        \"name\": \"string\",\n        \"logo\": \"string\"\n      },\n      {\n        \"url\": \"https://jaQMXEuCTGCNdILJ.qqea6rV\",\n        \"name\": \"string\",\n        \"logo\": \"string\"\n      }\n    ],\n    \"dominentpol\": \"pm25\",\n    \"forecast\": {\n      \"daily\": {\n        \"o3\": [\n          {\n            \"avg\": 9912.806114873967,\n            \"day\": \"2024-01-15\",\n            \"max\": 4339.201685680238,\n            \"min\": 3190.2358018664977\n          },\n          {\n            \"avg\": 7494.607596364071,\n            \"day\": \"2024-01-15\",\n            \"max\": 5055.50875246588,\n            \"min\": 3507.412006376697\n          }\n        ],\n        \"pm10\": [\n          {\n            \"avg\": 7757.211252377887,\n            \"day\": \"2024-01-15\",\n            \"max\": 3009.00569827234,\n            \"min\": 470.003501233035\n          },\n          {\n            \"avg\": 4731.101899311795,\n            \"day\": \"2024-01-15\",\n            \"max\": 8885.194333831943,\n            \"min\": 2258.1689509502735\n          }\n        ],\n        \"pm25\": [\n          {\n            \"avg\": 3790.032142466574,\n            \"day\": \"2024-01-15\",\n            \"max\": 4331.732557549843,\n            \"min\": 6062.79940738934\n          },\n          {\n            \"avg\": 3949.0194510294796,\n            \"day\": \"2024-01-15\",\n            \"max\": 2015.5488351678819,\n            \"min\": 6786.29676126956\n          }\n        ],\n        \"uvi\": [\n          {\n            \"avg\": 7066.022257608904,\n            \"day\": \"2024-01-15\",\n            \"max\": 6728.758188039819,\n            \"min\": 7168.530452951517\n          },\n          {\n            \"avg\": 8209.659208347439,\n            \"day\": \"2024-01-15\",\n            \"max\": 4432.157780191252,\n            \"min\": 1434.5378176560187\n          }\n        ]\n      }\n    },\n    \"debug\": {\n      \"sync\": \"2025-03-08T08:49:01.026Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3954256c-1c71-43a6-9c66-ce4d75ab7c3f",
+              "name": "Invalid coordinates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feed",
+                    "geo:{{lat}};{{lng}}",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": \"Unknown city or station\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e8f498f-2a92-410e-ad34-fcde7e1b2ff8",
+              "name": "Invalid or missing API token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feed",
+                    "geo:{{lat}};{{lng}}",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": \"Unknown city or station\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63c04922-459d-4b5f-ab7e-f1bc76615284",
+          "name": "Get air quality feed based on requester IP address",
+          "request": {
+            "name": "Get air quality feed based on requester IP address",
+            "description": {
+              "content": "Returns the air quality data for the nearest monitoring station to the geographic location inferred from the requesting IP address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "feed",
+                "here",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) API authentication token."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "35c410a5-f478-4c19-be04-109ccad0201d",
+              "name": "Successful response with air quality feed data based on IP geolocation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feed",
+                    "here",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"aqi\": 68,\n    \"idx\": 1437,\n    \"city\": {\n      \"geo\": [\n        31.2047372,\n        121.4489017\n      ],\n      \"name\": \"Shanghai\",\n      \"url\": \"https://aqicn.org/city/shanghai\"\n    },\n    \"iaqi\": {\n      \"co\": {\n        \"v\": 204.29267782064775\n      },\n      \"no2\": {\n        \"v\": 5856.014717885541\n      },\n      \"o3\": {\n        \"v\": 1590.8233670723703\n      },\n      \"pm10\": {\n        \"v\": 8460.88359865731\n      },\n      \"pm25\": {\n        \"v\": 8751.873308686732\n      },\n      \"so2\": {\n        \"v\": 3442.4937626521223\n      },\n      \"t\": {\n        \"v\": 4162.564706263338\n      },\n      \"w\": {\n        \"v\": 1260.3108130910045\n      },\n      \"h\": {\n        \"v\": 6947.327660460447\n      },\n      \"p\": {\n        \"v\": 4049.835730784321\n      },\n      \"wg\": {\n        \"v\": 7504.3948747924715\n      }\n    },\n    \"time\": {\n      \"s\": \"2024-01-15 12:00:00\",\n      \"tz\": \"+08:00\",\n      \"v\": 1705320000,\n      \"iso\": \"2024-01-15T12:00:00+08:00\"\n    },\n    \"attributions\": [\n      {\n        \"url\": \"http://SPAMtjqqvEMgPkmD.oqZRXFdBHBWl-u1ko7NPOS,odrSGNbmbVLxMC91gYEHtVs3NX6\",\n        \"name\": \"string\",\n        \"logo\": \"string\"\n      },\n      {\n        \"url\": \"https://jaQMXEuCTGCNdILJ.qqea6rV\",\n        \"name\": \"string\",\n        \"logo\": \"string\"\n      }\n    ],\n    \"dominentpol\": \"pm25\",\n    \"forecast\": {\n      \"daily\": {\n        \"o3\": [\n          {\n            \"avg\": 9912.806114873967,\n            \"day\": \"2024-01-15\",\n            \"max\": 4339.201685680238,\n            \"min\": 3190.2358018664977\n          },\n          {\n            \"avg\": 7494.607596364071,\n            \"day\": \"2024-01-15\",\n            \"max\": 5055.50875246588,\n            \"min\": 3507.412006376697\n          }\n        ],\n        \"pm10\": [\n          {\n            \"avg\": 7757.211252377887,\n            \"day\": \"2024-01-15\",\n            \"max\": 3009.00569827234,\n            \"min\": 470.003501233035\n          },\n          {\n            \"avg\": 4731.101899311795,\n            \"day\": \"2024-01-15\",\n            \"max\": 8885.194333831943,\n            \"min\": 2258.1689509502735\n          }\n        ],\n        \"pm25\": [\n          {\n            \"avg\": 3790.032142466574,\n            \"day\": \"2024-01-15\",\n            \"max\": 4331.732557549843,\n            \"min\": 6062.79940738934\n          },\n          {\n            \"avg\": 3949.0194510294796,\n            \"day\": \"2024-01-15\",\n            \"max\": 2015.5488351678819,\n            \"min\": 6786.29676126956\n          }\n        ],\n        \"uvi\": [\n          {\n            \"avg\": 7066.022257608904,\n            \"day\": \"2024-01-15\",\n            \"max\": 6728.758188039819,\n            \"min\": 7168.530452951517\n          },\n          {\n            \"avg\": 8209.659208347439,\n            \"day\": \"2024-01-15\",\n            \"max\": 4432.157780191252,\n            \"min\": 1434.5378176560187\n          }\n        ]\n      }\n    },\n    \"debug\": {\n      \"sync\": \"2025-03-08T08:49:01.026Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a5a701f-3ebf-4af3-9c15-55fe07ad4f0b",
+              "name": "Invalid or missing API token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feed",
+                    "here",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": \"Unknown city or station\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.waqi.info",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Latitude of the target location.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<float>",
+      "key": "lat"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Longitude of the target location.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<float>",
+      "key": "lng"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "447c31f6-d254-4df1-abee-a5f2895295e2",
+    "name": "World Air Quality Index (WAQI) JSON Feed API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WAQI JSON API provides real-time air quality data, AQI readings, pollutant measurements, and station data for more than 12,000 monitoring stations worldwide. It delivers city-level and station-level air quality index values for pollutants including PM2.5, PM10, NO2, CO, SO2, and Ozone, along with geo-location queries, weather conditions, and 3-8 day forecast data. Authentication requires a free token obtained from the Air Quality Open Data Platform.\n\nContact Support:\n Name: WAQI Support",
+      "type": "text/plain"
+    }
+  }
+}

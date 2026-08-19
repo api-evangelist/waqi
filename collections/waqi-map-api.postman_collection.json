@@ -1,0 +1,267 @@
+{
+  "item": [
+    {
+      "id": "85b718eb-ccd9-4ba2-945a-fb4b1c96296c",
+      "name": "Map",
+      "description": {
+        "content": "Map tile and station boundary queries",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc5ec0d4-e785-4d91-a0cc-d3041fe1698f",
+          "name": "Get monitoring stations within geographic bounds",
+          "request": {
+            "name": "Get monitoring stations within geographic bounds",
+            "description": {
+              "content": "Returns all monitoring stations within a specified rectangular geographic bounding box, suitable for map display. Supports filtering by network (network parameter).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "map",
+                "bounds",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "latlng",
+                  "value": "<string>",
+                  "description": "(Required) Bounding box as a comma-separated string in the format: lat_north,lng_west,lat_south,lng_east."
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) API authentication token."
+                },
+                {
+                  "disabled": false,
+                  "key": "networks",
+                  "value": "<string>",
+                  "description": "Filter results by monitoring network (e.g., 'all' for all networks)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "252974b0-f0bf-40c8-82af-b3cd4150a419",
+              "name": "Successful response with list of monitoring stations within the bounding box",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "map",
+                    "bounds",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "latlng",
+                      "value": "40.712,-74.006,34.052,-118.243"
+                    },
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "networks",
+                      "value": "all"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": [\n    {\n      \"lat\": 40.6943,\n      \"lon\": -73.9249,\n      \"uid\": 7536,\n      \"aqi\": \"45\",\n      \"station\": {\n        \"name\": \"Brooklyn, New York, USA\",\n        \"time\": \"2024-01-15T12:00:00-05:00\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "977c8eb9-03db-4076-8dc2-9a70978df5c2",
+              "name": "Invalid bounding box parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "map",
+                    "bounds",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "latlng",
+                      "value": "40.712,-74.006,34.052,-118.243"
+                    },
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "networks",
+                      "value": "all"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": \"Unknown city or station\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b30b176-a58b-40f7-a37b-423af113445b",
+              "name": "Invalid or missing API token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "map",
+                    "bounds",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "latlng",
+                      "value": "40.712,-74.006,34.052,-118.243"
+                    },
+                    {
+                      "key": "token",
+                      "value": "demo"
+                    },
+                    {
+                      "key": "networks",
+                      "value": "all"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": \"Unknown city or station\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.waqi.info",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "81effe25-c919-40c2-a2cb-b903c0b03ba0",
+    "name": "World Air Quality Index (WAQI) JSON Feed Map API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WAQI JSON API provides real-time air quality data, AQI readings, pollutant measurements, and station data for more than 12,000 monitoring stations worldwide. It delivers city-level and station-level air quality index values for pollutants including PM2.5, PM10, NO2, CO, SO2, and Ozone, along with geo-location queries, weather conditions, and 3-8 day forecast data. Authentication requires a free token obtained from the Air Quality Open Data Platform.\n\nContact Support:\n Name: WAQI Support",
+      "type": "text/plain"
+    }
+  }
+}

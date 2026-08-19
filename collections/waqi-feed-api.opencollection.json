@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "World Air Quality Index (WAQI) JSON Feed API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Feed",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get air quality feed for a city",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.waqi.info/feed/:city/",
+            "params": [
+              {
+                "name": "city",
+                "value": "",
+                "type": "path",
+                "description": "City name or station identifier (e.g., 'shanghai', 'beijing', '@8397' for station ID). Use 'here' for IP-based geolocation."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "API authentication token obtained from the Air Quality Open Data Platform."
+              }
+            ]
+          },
+          "docs": "Returns the current air quality data for a specified city or monitoring station. Provides AQI readings, pollutant measurements (PM2.5, PM10, NO2, CO, SO2, Ozone), station coordinates, weather conditions, and forecast data."
+        },
+        {
+          "info": {
+            "name": "Get air quality feed by geographic coordinates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.waqi.info/feed/geo::lat;:lng/",
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "path",
+                "description": "Latitude of the target location."
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "path",
+                "description": "Longitude of the target location."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "API authentication token."
+              }
+            ]
+          },
+          "docs": "Returns the air quality data for the nearest monitoring station to the specified latitude and longitude coordinates."
+        },
+        {
+          "info": {
+            "name": "Get air quality feed based on requester IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.waqi.info/feed/here/",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "API authentication token."
+              }
+            ]
+          },
+          "docs": "Returns the air quality data for the nearest monitoring station to the geographic location inferred from the requesting IP address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
