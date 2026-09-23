@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: World Air Quality Index (WAQI) JSON Feed Search API
+  title: World Air Quality Index (WAQI) JSON Search API
   description: The WAQI JSON API provides real-time air quality data, AQI readings, pollutant measurements, and station data for more than 12,000 monitoring stations worldwide. It delivers city-level and station-level air quality index values for pollutants including PM2.5, PM10, NO2, CO, SO2, and Ozone, along with geo-location queries, weather conditions, and 3-8 day forecast data. Authentication requires a free token obtained from the Air Quality Open Data Platform.
   version: 1.0.0
   contact:
@@ -77,37 +77,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    StationInfo:
-      type: object
-      description: Information about a monitoring station
-      properties:
-        name:
-          type: string
-          description: Full station name including city and country
-          example: Johannesburg South, South Africa
-        geo:
-          type: array
-          description: Geographic coordinates [latitude, longitude]
-          items:
-            type: number
-            format: float
-          minItems: 2
-          maxItems: 2
-          example:
-          - -26.2041
-          - 28.0473
-        url:
-          type: string
-          description: Relative URL path to the station page on aqicn.org
-          example: johannesburg-south/south-africa
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          example: ZA
-      required:
-      - name
-      - geo
-      - url
     SearchResponse:
       type: object
       description: Response from the station search endpoint
@@ -171,6 +140,37 @@ components:
       - uid
       - aqi
       - station
+    StationInfo:
+      type: object
+      description: Information about a monitoring station
+      properties:
+        name:
+          type: string
+          description: Full station name including city and country
+          example: Johannesburg South, South Africa
+        geo:
+          type: array
+          description: Geographic coordinates [latitude, longitude]
+          items:
+            type: number
+            format: float
+          minItems: 2
+          maxItems: 2
+          example:
+          - -26.2041
+          - 28.0473
+        url:
+          type: string
+          description: Relative URL path to the station page on aqicn.org
+          example: johannesburg-south/south-africa
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          example: ZA
+      required:
+      - name
+      - geo
+      - url
   securitySchemes:
     tokenAuth:
       type: apiKey

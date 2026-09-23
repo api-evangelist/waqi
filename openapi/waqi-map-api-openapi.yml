@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: World Air Quality Index (WAQI) JSON Feed Map API
+  title: World Air Quality Index (WAQI) JSON Map API
   description: The WAQI JSON API provides real-time air quality data, AQI readings, pollutant measurements, and station data for more than 12,000 monitoring stations worldwide. It delivers city-level and station-level air quality index values for pollutants including PM2.5, PM10, NO2, CO, SO2, and Ozone, along with geo-location queries, weather conditions, and 3-8 day forecast data. Authentication requires a free token obtained from the Air Quality Open Data Platform.
   version: 1.0.0
   contact:
@@ -80,6 +80,22 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Error response returned when a request fails
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          description: Always 'error' for error responses
+        data:
+          type: string
+          description: Human-readable error message
+          example: Unknown city or station
+      required:
+      - status
+      - data
     MapStation:
       type: object
       description: A monitoring station returned in map bounds queries
@@ -119,22 +135,6 @@ components:
       - lon
       - uid
       - aqi
-    ErrorResponse:
-      type: object
-      description: Error response returned when a request fails
-      properties:
-        status:
-          type: string
-          enum:
-          - error
-          description: Always 'error' for error responses
-        data:
-          type: string
-          description: Human-readable error message
-          example: Unknown city or station
-      required:
-      - status
-      - data
     MapBoundsResponse:
       type: object
       description: Response from the map bounds endpoint
