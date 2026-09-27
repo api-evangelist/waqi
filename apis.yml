@@ -70,6 +70,8 @@ apis:
   humanURL: https://aqicn.org/api/
   baseURL: https://api.waqi.info
   tags:
+  - Maps
+  tags_raw:
   - Map
   properties:
   - type: OpenAPI
