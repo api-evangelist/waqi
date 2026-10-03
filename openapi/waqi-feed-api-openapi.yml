@@ -206,93 +206,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    IndividualAQI:
-      type: object
-      description: Individual pollutant AQI sub-index values
-      properties:
-        co:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Carbon Monoxide (CO) AQI sub-index
-        no2:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Nitrogen Dioxide (NO2) AQI sub-index
-        o3:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Ozone (O3) AQI sub-index
-        pm10:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Particulate Matter 10 micrometers (PM10) AQI sub-index
-        pm25:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Particulate Matter 2.5 micrometers (PM2.5) AQI sub-index
-        so2:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Sulfur Dioxide (SO2) AQI sub-index
-        t:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Temperature
-        w:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Wind speed
-        h:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Humidity
-        p:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Atmospheric pressure
-        wg:
-          $ref: '#/components/schemas/PollutantValue'
-          description: Wind gust
-    Forecast:
-      type: object
-      description: Air quality forecast data (3-8 days)
-      properties:
-        daily:
-          type: object
-          description: Daily forecast values by pollutant
-          properties:
-            o3:
-              type: array
-              items:
-                $ref: '#/components/schemas/ForecastDay'
-            pm10:
-              type: array
-              items:
-                $ref: '#/components/schemas/ForecastDay'
-            pm25:
-              type: array
-              items:
-                $ref: '#/components/schemas/ForecastDay'
-            uvi:
-              type: array
-              items:
-                $ref: '#/components/schemas/ForecastDay'
-              description: UV Index forecast
-    TimeInfo:
-      type: object
-      description: Timestamp information for the data reading
-      properties:
-        s:
-          type: string
-          description: Timestamp in local station time (YYYY-MM-DD HH:MM:SS)
-          example: '2024-01-15 12:00:00'
-        tz:
-          type: string
-          description: Timezone offset of the station (e.g., +08:00)
-          example: +08:00
-        v:
-          type: integer
-          description: Unix epoch timestamp
-          example: 1705320000
-        iso:
-          type: string
-          format: date-time
-          description: ISO 8601 formatted timestamp with timezone
-          example: '2024-01-15T12:00:00+08:00'
-      required:
-      - s
-      - tz
-      - v
     ErrorResponse:
       type: object
       description: Error response returned when a request fails
@@ -332,58 +245,6 @@ components:
       - day
       - max
       - min
-    FeedResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - ok
-          - error
-          description: Response status indicator
-        data:
-          $ref: '#/components/schemas/FeedData'
-      required:
-      - status
-      - data
-    CityInfo:
-      type: object
-      description: City or station location information
-      properties:
-        geo:
-          type: array
-          description: Geographic coordinates [latitude, longitude]
-          items:
-            type: number
-            format: float
-          minItems: 2
-          maxItems: 2
-          example:
-          - 31.2047372
-          - 121.4489017
-        name:
-          type: string
-          description: Display name of the city or station
-          example: Shanghai
-        url:
-          type: string
-          format: uri
-          description: URL to the city or station page on aqicn.org
-          example: https://aqicn.org/city/shanghai
-      required:
-      - geo
-      - name
-      - url
-    PollutantValue:
-      type: object
-      description: A single pollutant or measurement value
-      properties:
-        v:
-          type: number
-          format: float
-          description: The measurement value
-      required:
-      - v
     FeedData:
       type: object
       description: Air quality feed data for a monitoring station
@@ -434,6 +295,85 @@ components:
       - city
       - iaqi
       - time
+    CityInfo:
+      type: object
+      description: City or station location information
+      properties:
+        geo:
+          type: array
+          description: Geographic coordinates [latitude, longitude]
+          items:
+            type: number
+            format: float
+          minItems: 2
+          maxItems: 2
+          example:
+          - 31.2047372
+          - 121.4489017
+        name:
+          type: string
+          description: Display name of the city or station
+          example: Shanghai
+        url:
+          type: string
+          format: uri
+          description: URL to the city or station page on aqicn.org
+          example: https://aqicn.org/city/shanghai
+      required:
+      - geo
+      - name
+      - url
+    IndividualAQI:
+      type: object
+      description: Individual pollutant AQI sub-index values
+      properties:
+        co:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Carbon Monoxide (CO) AQI sub-index
+        no2:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Nitrogen Dioxide (NO2) AQI sub-index
+        o3:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Ozone (O3) AQI sub-index
+        pm10:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Particulate Matter 10 micrometers (PM10) AQI sub-index
+        pm25:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Particulate Matter 2.5 micrometers (PM2.5) AQI sub-index
+        so2:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Sulfur Dioxide (SO2) AQI sub-index
+        t:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Temperature
+        w:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Wind speed
+        h:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Humidity
+        p:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Atmospheric pressure
+        wg:
+          $ref: '#/components/schemas/PollutantValue'
+          description: Wind gust
+    FeedResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+          description: Response status indicator
+        data:
+          $ref: '#/components/schemas/FeedData'
+      required:
+      - status
+      - data
     Attribution:
       type: object
       description: Data attribution source
@@ -451,6 +391,66 @@ components:
       required:
       - url
       - name
+    PollutantValue:
+      type: object
+      description: A single pollutant or measurement value
+      properties:
+        v:
+          type: number
+          format: float
+          description: The measurement value
+      required:
+      - v
+    TimeInfo:
+      type: object
+      description: Timestamp information for the data reading
+      properties:
+        s:
+          type: string
+          description: Timestamp in local station time (YYYY-MM-DD HH:MM:SS)
+          example: '2024-01-15 12:00:00'
+        tz:
+          type: string
+          description: Timezone offset of the station (e.g., +08:00)
+          example: +08:00
+        v:
+          type: integer
+          description: Unix epoch timestamp
+          example: 1705320000
+        iso:
+          type: string
+          format: date-time
+          description: ISO 8601 formatted timestamp with timezone
+          example: '2024-01-15T12:00:00+08:00'
+      required:
+      - s
+      - tz
+      - v
+    Forecast:
+      type: object
+      description: Air quality forecast data (3-8 days)
+      properties:
+        daily:
+          type: object
+          description: Daily forecast values by pollutant
+          properties:
+            o3:
+              type: array
+              items:
+                $ref: '#/components/schemas/ForecastDay'
+            pm10:
+              type: array
+              items:
+                $ref: '#/components/schemas/ForecastDay'
+            pm25:
+              type: array
+              items:
+                $ref: '#/components/schemas/ForecastDay'
+            uvi:
+              type: array
+              items:
+                $ref: '#/components/schemas/ForecastDay'
+              description: UV Index forecast
   securitySchemes:
     tokenAuth:
       type: apiKey

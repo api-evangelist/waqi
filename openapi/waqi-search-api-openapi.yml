@@ -77,6 +77,66 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    StationInfo:
+      type: object
+      description: Information about a monitoring station
+      properties:
+        name:
+          type: string
+          description: Full station name including city and country
+          example: Johannesburg South, South Africa
+        geo:
+          type: array
+          description: Geographic coordinates [latitude, longitude]
+          items:
+            type: number
+            format: float
+          minItems: 2
+          maxItems: 2
+          example:
+          - -26.2041
+          - 28.0473
+        url:
+          type: string
+          description: Relative URL path to the station page on aqicn.org
+          example: johannesburg-south/south-africa
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          example: ZA
+      required:
+      - name
+      - geo
+      - url
+    SearchResult:
+      type: object
+      description: A single monitoring station search result
+      properties:
+        uid:
+          type: integer
+          description: Unique station identifier in the WAQI network
+          example: 8397
+        aqi:
+          type: string
+          description: Current AQI value (may be a string '-' if unavailable)
+          example: '68'
+        time:
+          type: object
+          properties:
+            stime:
+              type: string
+              description: Station local time string
+              example: '2024-01-15 12:00:00'
+            vtime:
+              type: integer
+              description: Unix epoch timestamp
+              example: 1705320000
+        station:
+          $ref: '#/components/schemas/StationInfo'
+      required:
+      - uid
+      - aqi
+      - station
     ErrorResponse:
       type: object
       description: Error response returned when a request fails
@@ -111,66 +171,6 @@ components:
       required:
       - status
       - data
-    SearchResult:
-      type: object
-      description: A single monitoring station search result
-      properties:
-        uid:
-          type: integer
-          description: Unique station identifier in the WAQI network
-          example: 8397
-        aqi:
-          type: string
-          description: Current AQI value (may be a string '-' if unavailable)
-          example: '68'
-        time:
-          type: object
-          properties:
-            stime:
-              type: string
-              description: Station local time string
-              example: '2024-01-15 12:00:00'
-            vtime:
-              type: integer
-              description: Unix epoch timestamp
-              example: 1705320000
-        station:
-          $ref: '#/components/schemas/StationInfo'
-      required:
-      - uid
-      - aqi
-      - station
-    StationInfo:
-      type: object
-      description: Information about a monitoring station
-      properties:
-        name:
-          type: string
-          description: Full station name including city and country
-          example: Johannesburg South, South Africa
-        geo:
-          type: array
-          description: Geographic coordinates [latitude, longitude]
-          items:
-            type: number
-            format: float
-          minItems: 2
-          maxItems: 2
-          example:
-          - -26.2041
-          - 28.0473
-        url:
-          type: string
-          description: Relative URL path to the station page on aqicn.org
-          example: johannesburg-south/south-africa
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          example: ZA
-      required:
-      - name
-      - geo
-      - url
   securitySchemes:
     tokenAuth:
       type: apiKey

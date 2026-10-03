@@ -80,22 +80,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Error response returned when a request fails
-      properties:
-        status:
-          type: string
-          enum:
-          - error
-          description: Always 'error' for error responses
-        data:
-          type: string
-          description: Human-readable error message
-          example: Unknown city or station
-      required:
-      - status
-      - data
     MapStation:
       type: object
       description: A monitoring station returned in map bounds queries
@@ -135,6 +119,22 @@ components:
       - lon
       - uid
       - aqi
+    ErrorResponse:
+      type: object
+      description: Error response returned when a request fails
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          description: Always 'error' for error responses
+        data:
+          type: string
+          description: Human-readable error message
+          example: Unknown city or station
+      required:
+      - status
+      - data
     MapBoundsResponse:
       type: object
       description: Response from the map bounds endpoint
