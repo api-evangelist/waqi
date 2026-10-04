@@ -119,22 +119,6 @@ components:
       - lon
       - uid
       - aqi
-    ErrorResponse:
-      type: object
-      description: Error response returned when a request fails
-      properties:
-        status:
-          type: string
-          enum:
-          - error
-          description: Always 'error' for error responses
-        data:
-          type: string
-          description: Human-readable error message
-          example: Unknown city or station
-      required:
-      - status
-      - data
     MapBoundsResponse:
       type: object
       description: Response from the map bounds endpoint
@@ -150,6 +134,22 @@ components:
           description: List of monitoring stations within the bounding box
           items:
             $ref: '#/components/schemas/MapStation'
+      required:
+      - status
+      - data
+    ErrorResponse:
+      type: object
+      description: Error response returned when a request fails
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          description: Always 'error' for error responses
+        data:
+          type: string
+          description: Human-readable error message
+          example: Unknown city or station
       required:
       - status
       - data

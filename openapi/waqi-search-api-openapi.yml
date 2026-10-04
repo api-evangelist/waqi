@@ -77,6 +77,40 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Error response returned when a request fails
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          description: Always 'error' for error responses
+        data:
+          type: string
+          description: Human-readable error message
+          example: Unknown city or station
+      required:
+      - status
+      - data
+    SearchResponse:
+      type: object
+      description: Response from the station search endpoint
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+          - error
+          description: Response status indicator
+        data:
+          type: array
+          description: List of matching monitoring stations
+          items:
+            $ref: '#/components/schemas/SearchResult'
+      required:
+      - status
+      - data
     StationInfo:
       type: object
       description: Information about a monitoring station
@@ -137,40 +171,6 @@ components:
       - uid
       - aqi
       - station
-    ErrorResponse:
-      type: object
-      description: Error response returned when a request fails
-      properties:
-        status:
-          type: string
-          enum:
-          - error
-          description: Always 'error' for error responses
-        data:
-          type: string
-          description: Human-readable error message
-          example: Unknown city or station
-      required:
-      - status
-      - data
-    SearchResponse:
-      type: object
-      description: Response from the station search endpoint
-      properties:
-        status:
-          type: string
-          enum:
-          - ok
-          - error
-          description: Response status indicator
-        data:
-          type: array
-          description: List of matching monitoring stations
-          items:
-            $ref: '#/components/schemas/SearchResult'
-      required:
-      - status
-      - data
   securitySchemes:
     tokenAuth:
       type: apiKey
